@@ -85,6 +85,8 @@ tf_cc_test(
         "@org_tensorflow//tensorflow/cc:cc_ops",
         "@org_tensorflow//tensorflow/cc:client_session",
         "@org_tensorflow//tensorflow/core:tensorflow",
+        "@ngraph_clang_archive//:clang_lib",
+
     ],
     extra_copts = [
         "-fexceptions ",

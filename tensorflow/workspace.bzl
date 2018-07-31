@@ -834,6 +834,19 @@ def tf_workspace(path_prefix="", tf_repo_name=""):
       build_file = clean_dep("//third_party/ngraph:ngraph.BUILD"),
   )
 
+
+  tf_http_archive(
+      name = "ngraph_clang_archive",
+      urls = [
+          "https://mirror.bazel.build/github.com/llvm-mirror/clang/archive/release_60.zip",
+          "https://github.com/llvm-mirror/clang/archive/release_60.zip",
+      ],
+      sha256 = "65926c1b54f615b54df2c51940fde81fc03ca467dcc36fa2ee06d6d4fedbf42e",
+      strip_prefix = "clang-release_60",
+      build_file = clean_dep("//third_party/ngraph:clang.BUILD"),
+  )
+
+
   tf_http_archive(
       name = "nlohmann_json_lib",
       urls = [
