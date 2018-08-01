@@ -18,6 +18,9 @@ cc_library(
     copts = [
         "-I ",
     ],
+    deps = [
+       "@llvm",
+    ],
     visibility = ["//visibility:public"],
     alwayslink=1
 )
