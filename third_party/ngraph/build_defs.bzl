@@ -14,3 +14,7 @@ def if_ngraph(a):
     })
 
     return ret_val
+
+def debug_print(txt):
+    print( "Here: " + txt )
+    return []
