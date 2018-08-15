@@ -25,7 +25,22 @@ cc_library(
 )
 
 cc_library(
-    name = "ngraph_tf",
+    name = "ngraph_tf_hdrs",
+    hdrs = [
+        "src/ngraph_builder.h",
+        "src/ngraph_cluster.h",
+        "src/ngraph_cluster_manager.h",
+        "src/ngraph_freshness_tracker.h",
+        "src/ngraph_utils.h",
+        "src/tf_graphcycles.h",
+        "logging/ngraph_log.h",
+        "logging/tf_graph_writer.h",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+cc_binary(
+    name = "libngraph_tf.so",
     srcs = [
         "src/ngraph_builder.h",
         "src/ngraph_builder.cc",
@@ -47,14 +62,12 @@ cc_library(
         "src/ngraph_utils.cc",
         "src/ngraph_send_recv_ops.cc",
         "src/ngraph_variable_ops.cc",
+        "src/tf_graphcycles.h",
         "src/tf_graphcycles.cc",
         "logging/ngraph_log.h",
         "logging/ngraph_log.cc",
         "logging/tf_graph_writer.h",
         "logging/tf_graph_writer.cc",
-    ],
-    hdrs = [
-        "src/tf_graphcycles.h"
     ],
     deps = [
         "@org_tensorflow//tensorflow/core:protos_all_proto_text",
@@ -68,7 +81,11 @@ cc_library(
         "-I external/ngraph/src",
         "-D NGRAPH_EMBEDDED_IN_TENSORFLOW=1",
     ],
-    alwayslink=1,
+    linkopts = [
+        "-lpthread",
+        "-ldl",
+    ],
+    linkshared=1,
     visibility = ["//visibility:public"],
 )
 
@@ -78,9 +95,11 @@ tf_cc_test(
     srcs = [
         "test/tf_exec.cpp",
         "test/main.cpp",
+        "libngraph_tf.so"
     ],
     deps = [
-        ":ngraph_tf",
+        ":ngraph_tf_hdrs",
+        "@ngraph//:ngraph_core",
         "@com_google_googletest//:gtest",
         "@org_tensorflow//tensorflow/cc:cc_ops",
         "@org_tensorflow//tensorflow/cc:client_session",

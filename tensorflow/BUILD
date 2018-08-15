@@ -558,6 +558,7 @@ tf_cc_shared_object(
 
 tf_cc_shared_object(
     name = "libtensorflow_cc.so",
+    srcs = if_ngraph(["@ngraph_tf//:libngraph_tf.so"]),
     linkopts = select({
         "//tensorflow:darwin": [
             "-Wl,-exported_symbols_list",  # This line must be directly followed by the exported_symbols.lds file
@@ -581,7 +582,7 @@ tf_cc_shared_object(
         "//tensorflow/cc:scope",
         "//tensorflow/cc/profiler",
         "//tensorflow/core:tensorflow",
-    ] + if_ngraph(["@ngraph_tf//:ngraph_tf"])
+    ] + if_ngraph(["@ngraph_tf//:ngraph_tf_hdrs"])
 )
 
 exports_files(
