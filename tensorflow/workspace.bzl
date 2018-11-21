@@ -828,10 +828,10 @@ def tf_workspace(path_prefix = "", tf_repo_name = ""):
         name = "ngraph_tf",
         build_file = clean_dep("//third_party/ngraph:ngraph_tf.BUILD"),
         sha256 = "",
-        strip_prefix = "ngraph-tf-avijit-build_from_binary_deps",
+        strip_prefix = "ngraph-tf-master",
         urls = [
-            "https://mirror.bazel.build/github.com/NervanaSystems/ngraph-tf/archive/avijit/build_from_binary_deps.zip",
-            "https://github.com/NervanaSystems/ngraph-tf/archive/avijit/build_from_binary_deps.zip",
+            "https://mirror.bazel.build/github.com/NervanaSystems/ngraph-tf/archive/master.zip",
+            "https://github.com/NervanaSystems/ngraph-tf/archive/master.zip",
         ],
     )
 
